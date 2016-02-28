@@ -6,22 +6,20 @@ from stack.items import StackItem
 
 class StackSpider(Spider):
     name = "stack"
-    allowed_domains = ["shop.aothun.vn"]
+    allowed_domains = ["stackoverflow.com"]
     start_urls = [
-        "http://shop.aothun.vn",
+        "http://stackoverflow.com/questions?pagesize=50&sort=newest",
+        "http://stackoverflow.com/questions?sort=featured",
     ]
-
     def parse(self, response):
-        questions = Selector(response).xpath('//div[@class="product-container text-left product-block"]')
+        questions = Selector(response).xpath('//div[@class="summary"]/h3')
 
         for question in questions:
             item = StackItem()
-            item['url'] = question.xpath(
-                'div[@class="product-image-container image"]/a[@class="product_img_link"]/@href').extract()[0]
             item['title'] = question.xpath(
-                'div[@class="product-image-container image"]/a[@class="product_img_link"]/@title').extract()[0]
-            item['price'] = question.xpath(
-                'div[@class="product-meta"]/div[@class="clearfix"]/div[@class="content_price"]/span[@class="price product-price "]/text()').extract()[0]
+                'a[@class="question-hyperlink"]/text()').extract()[0]
+            item['url'] = question.xpath(
+                'a[@class="question-hyperlink"]/@href').extract()[0]
             
             yield item
 

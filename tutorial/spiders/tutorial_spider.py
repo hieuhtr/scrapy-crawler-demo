@@ -14,6 +14,7 @@ class TutorialItem(Spider):
 	allowed_domains = ["stackoverflow.com"]
 	start_urls = [
 		"http://stackoverflow.com/questions?pagesize=50&sort=newest",
+		"http://stackoverflow.com/questions?sort=featured",
 	]
 
 	def parse(self, response):
