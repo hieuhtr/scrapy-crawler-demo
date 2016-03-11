@@ -7,6 +7,7 @@
 import json
 import codecs
 
+
 class JsonWithEncodingPipeline(object):
 
     def __init__(self):

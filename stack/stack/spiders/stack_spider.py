@@ -6,10 +6,9 @@ from stack.items import StackItem
 
 class StackSpider(Spider):
     name = "stack"
-    allowed_domains = ["stackoverflow.com"]
+    allowed_domains = ["xzone.vn"]
     start_urls = [
-        "http://stackoverflow.com/questions?pagesize=50&sort=newest",
-        "http://stackoverflow.com/questions?sort=featured",
+        "http://xzone.vn/",
     ]
     def parse(self, response):
         questions = Selector(response).xpath('//div[@class="summary"]/h3')
